@@ -7,8 +7,11 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1')
   app.use(cookieParser())
+  
+  const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || '*';
+  
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: allowedOrigins,
     credentials: true
   });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
